@@ -3,24 +3,28 @@ import tkFont as tkfont
 from startpage import StartPage
 from productionsubmitpage import ProductionSubmitPage
 from sellssubmitpage import SellsSubmitPage
+from stockpage import StockPage
 
 class StockManagerView(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
+        self.geometry('{}x{}'.format(800, 600))
+        # tk.Tk.resizable(self, width=False, height=False)
 
         # self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
-        container = tk.Frame(self)
+        container = tk.Frame(self, height=600, width=800)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in [StartPage, SellsSubmitPage, ProductionSubmitPage]:
+        for F in [StartPage, SellsSubmitPage, ProductionSubmitPage,
+                StockPage]:
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame

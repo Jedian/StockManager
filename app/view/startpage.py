@@ -8,9 +8,12 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="This is the start page")
         label.pack(side="top", fill="x", pady=10)
 
-        button1 = tk.Button(self, text="Go to Page One",
+        button1 = tk.Button(self, text="Vendas",
                             command=lambda: controller.show_frame("SellsSubmitPage"))
-        button2 = tk.Button(self, text="Go to Page Two",
+        button2 = tk.Button(self, text="Corte",
                             command=lambda: controller.show_frame("ProductionSubmitPage"))
-        button1.pack()
-        button2.pack()
+        button3 = tk.Button(self, text="Estoque",
+                            command=lambda: controller.show_frame("StockPage"))
+        button1.pack(side='left')
+        button2.pack(side='left')
+        button3.pack(side='left')
