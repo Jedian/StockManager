@@ -14,3 +14,7 @@ class ProductionSubmitPage(tk.Frame):
         self.label.pack(side="top", fill="x", pady=10)
         self.dataEntry.pack()
         self.button.pack()
+
+    def setController(self, controller):
+        self.smcontroller = controller
+

@@ -7,9 +7,10 @@ from stockpage import StockPage
 
 class StockManagerView(tk.Tk):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, controller, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.geometry('{}x{}'.format(800, 600))
+        self.smcontroller = controller
         # tk.Tk.resizable(self, width=False, height=False)
 
         # self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
@@ -27,6 +28,7 @@ class StockManagerView(tk.Tk):
                 StockPage]:
             page_name = F.__name__
             frame = F(parent=container, controller=self)
+            frame.setController(self.smcontroller)
             self.frames[page_name] = frame
 
             # put all of the pages in the same location;

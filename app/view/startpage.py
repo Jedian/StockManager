@@ -17,3 +17,7 @@ class StartPage(tk.Frame):
         button1.pack(side='left')
         button2.pack(side='left')
         button3.pack(side='left')
+
+    def setController(self, controller):
+        self.smcontroller = controller
+

@@ -5,12 +5,10 @@ class StockPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
 	self.currentPage = 1
 	self.totalPages = 25
-
+        self.smcontroller = None
 	# tabela
-	self.setTable()
 
 	# voltar + pesquisa
         self.label = tk.Label(self, text="This is page 3")
@@ -22,8 +20,12 @@ class StockPage(tk.Frame):
         self.dataEntry.pack()
         self.backbutton.pack(side='bottom')
 
+    def setController(self, controller):
+        self.smcontroller = controller
+	self.setTable()
+
     def setTableModel(self):
-	model = TableModel(rows=10, columns=8)
+	model = TableModel(rows=550, columns=8)
 	colidx = 1
 	for col in ['Ref.', 'PP', 'P', 'M', 'G', 'GG', 'XGG', 'XXGG']:
 	    model.columnlabels[str(colidx)] = col
@@ -47,26 +49,44 @@ class StockPage(tk.Frame):
 	tframe = tk.Frame(aframe, height=1500, width=1500)
 	tframe.pack(side='left', fill='both', expand=True)
 
-	
-        table = TableCanvas(tframe, model=self.setTableModel())
-        table.createTableFrame()
-	table.addRow()
+        self.table = TableCanvas(tframe, model=self.setTableModel())
+        self.table.createTableFrame()
+        self.setTableContent(self.currentPage)
 	#model.importDict(test)
 
-    def setTableContent(self, data):
+    def setTableContent(self, page):
+        stockcontent = self.smcontroller.getStockPageContent(self.currentPage)
+        lineno = 1
+        ri = 0
+        while ri < len(stockcontent):
+            self.table.model.data[ri*5]['1'] = str(stockcontent[ri]['ref'])
+            self.table.model.data[ri*5 + 1]['1'] = 'Corte'
+            self.table.model.data[ri*5 + 2]['1'] = 'Venda'
+            self.table.model.data[ri*5 + 3]['1'] = 'Saldo'
+
+            for i, j in zip(xrange(2, 8), ['pp', 'p', 'm', 'g', 'gg', 'xgg']):
+                self.table.model.data[ri*5][str(i)] = '----------------'
+                self.table.model.data[ri*5 + 1][str(i)] = str(stockcontent[ri]['val'][j]['p'])
+                self.table.model.data[ri*5 + 2][str(i)] = str(stockcontent[ri]['val'][j]['s'])
+                self.table.model.data[ri*5 + 3][str(i)] = str(stockcontent[ri]['val'][j]['st'])
+
+            ri = ri+1
+
+        self.table.redrawTable()
+        print(stockcontent[0])
 	#todo
 	return 1
 
     def nextPage(self):
 	#if self.currentPage != self.totalPages:
 	#    self.currentPage = self.currentPage + 1
-	#    self.setTableContent(self.controller.getPageContent(self.currentPage))
+        #    self.setTableContent(self.currentPage)
 	#todo
 	return 1
 
     def prevPage(self):
 	#if self.currentPage != 1:
 	#    self.currentPage = self.currentPage - 1
-	#    self.setTableContent(self.controller.getPageContent(self.currentPage))
+        #    self.setTableContent(self.currentPage)
 	#todo
 	return 1	
