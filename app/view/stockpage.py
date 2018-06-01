@@ -29,8 +29,8 @@ class StockPage(tk.Frame):
     def setTableModel(self):
 	model = TableModel(rows=self.totalRows, columns=self.totalCols)
 	colidx = 1
-	for col in ['Ref.', 'PP', 'P', 'M', 'G', 'GG', 'XGG', 'XXGG']:
-	    model.columnlabels[str(colidx)] = col
+	for col in ['Ref.', 'PP', 'P', 'M', 'G', 'GG', 'XGG']:
+            model.columnlabels[str(colidx)] = col
 	    colidx = colidx+1
 	return model
 
@@ -63,7 +63,6 @@ class StockPage(tk.Frame):
                 self.table.model.data[row][str(col)] = ""
 
     def setTableStyle(self, content):
-        lineno = 1
         ri = 0
         while ri < len(content):
             #colors
@@ -88,7 +87,6 @@ class StockPage(tk.Frame):
         self.clearTableContent()
         self.setTableStyle(stockcontent)
 
-        lineno = 1
         ri = 0
         while ri < len(stockcontent):
             productname = productscontent[stockcontent[ri]['ref']].split(' ')

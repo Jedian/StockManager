@@ -42,3 +42,7 @@ class StockManagerController():
 
         return stockcontent, productscontent
         #fazer as conta e mostrar a planilha bonitinha
+
+    def saveData(self, data, datatype):
+        #todo
+        return 1
