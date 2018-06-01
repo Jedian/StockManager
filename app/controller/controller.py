@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from itertools import izip
 
 class StockManagerController():
@@ -15,22 +17,28 @@ class StockManagerController():
     def loadDatabase(self):
         self.productionData = self.model.Data('../database/corte.csv')
         self.sellData = self.model.Data('../database/venda.csv')
+        self.productsData = self.model.Data('../database/produtos.csv')
 
     def getStockPageContent(self, page=1):
         production = self.productionData.getContent(page).values
         sells = self.sellData.getContent(page).values
+        products = self.productsData.getContent(page).values
         
         stockcontent = []
-
-        sizes = ['pp', 'p', 'm', 'g', 'gg', 'xgg']
+        sizes = ['ref', 'pp', 'p', 'm', 'g', 'gg', 'xgg']
         for rp, rs in izip(production, sells):
             rp[0] = int(rp[0])
             ref = {'ref': rp[0], 'val': {}}
-            for i in xrange(0, len(sizes)):
+            for i in xrange(1, 7):
                 rp[i] = int(rp[i])
                 rs[i] = int(rs[i])
                 ref['val'][sizes[i]] = {'p': rp[i], 's': rs[i], 'st': rp[i]-rs[i]}
             stockcontent.append(ref)
 
-        return stockcontent
+        productscontent = {}
+
+        for row in products:
+            productscontent[row[0]] = row[1]
+
+        return stockcontent, productscontent
         #fazer as conta e mostrar a planilha bonitinha

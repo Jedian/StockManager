@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import Tkinter as tk
 import tkFont as tkfont
 from startpage import StartPage
