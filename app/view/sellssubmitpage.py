@@ -83,8 +83,7 @@ class SellsSubmitPage(tk.Frame):
                     data[str(self.table.model.data[row]['1'])][tr[str(col)]] = data[str(self.table.model.data[row]['1'])][tr[str(col)]]  + int(self.table.model.data[row][str(col)])
         try:
             self.smcontroller.saveData(data, 'venda')
+	    self.clearTableContent()
+	    self.table.redrawTable()
         except Exception as e:
             tkMessageBox.showerror('Erro!', e.message)
-
-	self.clearTableContent()
-	self.table.redrawTable()
