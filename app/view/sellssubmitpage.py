@@ -64,18 +64,27 @@ class SellsSubmitPage(tk.Frame):
             model.columnlabels[str(colidx)] = col
             colidx = colidx + 1
         return model
-       
+
+    def clearTableContent(self):
+        for row in xrange(0, self.totalRows):
+            for col in xrange(0, self.totalCols+1):
+                self.table.model.data[row][str(col)] = ""
+
     def saveAndClean(self):
         data = {}
         tr = {'2':'pp', '3': 'p', '4':'m', '5':'g', '6':'gg', '7':'xgg'}
-        print self.table.model.data
         for row in xrange(0, self.rowIter):
             if self.table.model.data[row]['1'] != "":
                 data[str(self.table.model.data[row]['1'])] = {'pp':0, 'p':0, 'm':0, 'g':0, 'gg':0, 'xgg':0}
 
         for row in xrange(0, self.rowIter):
             for col in xrange(2, self.totalCols+1):
-                if str(col) in self.table.model.data[row]:
+                if str(col) in self.table.model.data[row] and self.table.model.data[row][str(col)] != "":
                     data[str(self.table.model.data[row]['1'])][tr[str(col)]] = data[str(self.table.model.data[row]['1'])][tr[str(col)]]  + int(self.table.model.data[row][str(col)])
+        try:
+            self.smcontroller.saveData(data, 'venda')
+        except Exception as e:
+            tkMessageBox.showerror('Erro!', e.message)
 
-        self.smcontroller.saveData(data, 'venda')
+	self.clearTableContent()
+	self.table.redrawTable()

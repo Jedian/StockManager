@@ -44,5 +44,26 @@ class StockManagerController():
         #fazer as conta e mostrar a planilha bonitinha
 
     def saveData(self, data, datatype):
-        #todo
-        return 1
+        if datatype == 'venda':
+            dbdata = self.sellData.getContent('all')
+        else:
+            dbdata = self.productionData.getContent('all')
+
+        pos = 0
+        refpos = {}
+        for row in dbdata['ref']:
+            refpos[str(row)] = pos
+            pos = pos+1
+
+        print dbdata
+        print data
+        for ref in data:
+            for tam in data[ref]:
+                if str(ref) not in refpos:
+                    raise Exception('ERRO: Referência ' + str(ref) + ' não existe')
+                dbdata[tam][refpos[str(ref)]] = int(dbdata[tam][refpos[str(ref)]]) + int(data[ref][tam])
+
+        if datatype == 'venda':
+            self.sellData.saveData(dbdata)
+        else:
+            self.productionData.saveData(dbdata)
