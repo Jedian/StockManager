@@ -7,7 +7,7 @@ class StockManagerController():
         self.view = view
         self.model = model
         # self.other_controllers = ...
-        
+
         self.loadDatabase()
 
     def start(self):
@@ -15,15 +15,15 @@ class StockManagerController():
         self.view.mainloop()
 
     def loadDatabase(self):
-        self.productionData = self.model.Data('../database/corte.csv')
-        self.sellData = self.model.Data('../database/venda.csv')
-        self.productsData = self.model.Data('../database/produtos.csv')
+        self.productionData = self.model.Data('./database/corte.csv')
+        self.sellData = self.model.Data('./database/venda.csv')
+        self.productsData = self.model.Data('./database/produtos.csv')
 
     def getStockPageContent(self, page=1):
         production = self.productionData.getContent(page).values
         sells = self.sellData.getContent(page).values
         products = self.productsData.getContent(page).values
-        
+
         stockcontent = []
         sizes = ['ref', 'pp', 'p', 'm', 'g', 'gg', 'xgg']
         for rp, rs in izip(production, sells):

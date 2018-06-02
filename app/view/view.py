@@ -10,6 +10,7 @@ class StockManagerView(tk.Tk):
 
     def __init__(self, controller, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
+        self.title('Controlador de estoque')
         self.geometry('{}x{}'.format(800, 600))
         self.smcontroller = controller
         # tk.Tk.resizable(self, width=False, height=False)

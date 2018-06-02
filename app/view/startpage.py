@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import Tkinter as tk
+from PIL import ImageTk, Image
 
 class StartPage(tk.Frame):
 
@@ -28,9 +29,12 @@ class StartPage(tk.Frame):
         button3 = tk.Button(b3frame, text="Estoque",
                             command=lambda: controller.show_frame("StockPage"))
 
-        self.money_icon = tk.PhotoImage(file='../icons/money_icon2.png')
-        self.industry_icon = tk.PhotoImage(file='../icons/industry_icon2.png')
-        self.box_icon = tk.PhotoImage(file='../icons/box_icon2.png')
+        self.money_icon = ImageTk.PhotoImage(Image.open("./icons/money_icon2.png"))
+        # self.money_icon = tk.PhotoImage(file='../icons/money_icon2.png')
+        # self.industry_icon = tk.PhotoImage(file='../icons/industry_icon2.png')
+        self.industry_icon = ImageTk.PhotoImage(Image.open("./icons/industry_icon2.png"))
+        # self.box_icon = tk.PhotoImage(file='../icons/box_icon2.png')
+        self.box_icon = ImageTk.PhotoImage(Image.open("./icons/box_icon2.png"))
 
         button1.config(image=self.money_icon,width="230",height="230")
         button2.config(image=self.industry_icon,width="230",height="230")
@@ -50,4 +54,3 @@ class StartPage(tk.Frame):
 
     def setController(self, controller):
         self.smcontroller = controller
-
