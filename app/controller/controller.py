@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from itertools import izip
-
 class StockManagerController():
     def __init__(self, model, view, controller):
         self.view = view
@@ -26,10 +24,10 @@ class StockManagerController():
 
         stockcontent = []
         sizes = ['ref', 'pp', 'p', 'm', 'g', 'gg', 'xgg']
-        for rp, rs in izip(production, sells):
+        for rp, rs in zip(production, sells):
             rp[0] = int(rp[0])
             ref = {'ref': rp[0], 'val': {}}
-            for i in xrange(1, 7):
+            for i in range(1, 7):
                 rp[i] = int(rp[i])
                 rs[i] = int(rs[i])
                 ref['val'][sizes[i]] = {'p': rp[i], 's': rs[i], 'st': rp[i]-rs[i]}
@@ -55,8 +53,8 @@ class StockManagerController():
             refpos[str(row)] = pos
             pos = pos+1
 
-        print dbdata
-        print data
+        # print dbdata
+        # print data
         for ref in data:
             for tam in data[ref]:
                 if str(ref) not in refpos:

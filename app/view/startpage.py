@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import Tkinter as tk
+import tkinter as tk
 from PIL import ImageTk, Image
 
 class StartPage(tk.Frame):

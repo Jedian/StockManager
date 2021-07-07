@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import Tkinter as tk
-import tkFont as tkfont
-from startpage import StartPage
-from productionsubmitpage import ProductionSubmitPage
-from sellssubmitpage import SellsSubmitPage
-from stockpage import StockPage
+import tkinter as tk
+import tkinter.font as tkfont
+from .startpage import StartPage
+from .productionsubmitpage import ProductionSubmitPage
+from .sellssubmitpage import SellsSubmitPage
+from .stockpage import StockPage
 
 class StockManagerView(tk.Tk):
 

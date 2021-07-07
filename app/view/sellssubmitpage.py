@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import Tkinter as tk
-import tkMessageBox
+import tkinter as tk
+from tkinter import messagebox
 import re
 from tkintertable import *
 
@@ -42,7 +42,7 @@ class SellsSubmitPage(tk.Frame):
                 tam = re.search("[a-z]+", str(entry)).group()
                 self.table.model.data[self.rowIter][tr[tam.upper()]] = qt
         except Exception as e:
-            tkMessageBox.showerror('Erro!', "Você provavelmente digitou algo errado, tente novamente. Caso o erro persista, talvez você devesse informar ao Jedian: " + str(e.message))
+            messagebox.showerror('Erro!', "Você provavelmente digitou algo errado, tente novamente. Caso o erro persista, talvez você devesse informar ao Jedian: " + str(e.message))
 
         self.table.redrawTable()
         self.rowIter = self.rowIter + 1 
@@ -66,24 +66,24 @@ class SellsSubmitPage(tk.Frame):
         return model
 
     def clearTableContent(self):
-        for row in xrange(0, self.totalRows):
-            for col in xrange(0, self.totalCols+1):
+        for row in range(0, self.totalRows):
+            for col in range(0, self.totalCols+1):
                 self.table.model.data[row][str(col)] = ""
 
     def saveAndClean(self):
         data = {}
         tr = {'2':'pp', '3': 'p', '4':'m', '5':'g', '6':'gg', '7':'xgg'}
-        for row in xrange(0, self.rowIter):
+        for row in range(0, self.rowIter):
             if self.table.model.data[row]['1'] != "":
                 data[str(self.table.model.data[row]['1'])] = {'pp':0, 'p':0, 'm':0, 'g':0, 'gg':0, 'xgg':0}
 
-        for row in xrange(0, self.rowIter):
-            for col in xrange(2, self.totalCols+1):
+        for row in range(0, self.rowIter):
+            for col in range(2, self.totalCols+1):
                 if str(col) in self.table.model.data[row] and self.table.model.data[row][str(col)] != "":
                     data[str(self.table.model.data[row]['1'])][tr[str(col)]] = data[str(self.table.model.data[row]['1'])][tr[str(col)]]  + int(self.table.model.data[row][str(col)])
         try:
             self.smcontroller.saveData(data, 'venda')
-	    self.clearTableContent()
-	    self.table.redrawTable()
+            self.clearTableContent()
+            self.table.redrawTable()
         except Exception as e:
-            tkMessageBox.showerror('Erro!', e.message)
+            messagebox.showerror('Erro!', e.message)
